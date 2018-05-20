@@ -1,5 +1,5 @@
 //迭代器模式
-//遍历某一个数据结构，以数组为例
+//遍历某一个数据结构，这里以数组为例
 
 var iterator = (function () {
     var index = 0,
@@ -14,12 +14,6 @@ var iterator = (function () {
         },
         hasNext: function () {
             return index < len;
-        },
-        rewind: function () {
-            index = 0;
-        },
-        current: function () {
-            return data[index];
         }
     };
 }());

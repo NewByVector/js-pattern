@@ -1,5 +1,5 @@
 //装饰者模式
-//动态地给函数赋能
+//增加普通对象的功能
 
 function Sale(price) {
     this.price = price;
@@ -36,5 +36,6 @@ Sale.prototype.getPrice = function () {
 
 var sale = new Sale(100);
 sale.decorate('fedtax');
+sale.getPrice();  //105
 sale.decorate('money');
-sale.getPrice();
+sale.getPrice();  //$105.00

@@ -1,68 +1,24 @@
 //策略模式
-//根据不同参数可以命中不同的策略
+//根据不同命令可以命中不同的算法
 
-var validator = {
-    //所有可用的检查
-    types: {},
-    //错误消息
-    messages: [],
-    //当前验证的配置
-    config: {},
-    //验证
-    validate: function (data) {
-        var i, msg, type, checker, result_ok;
-        this.messages = [];
-
-        for (i in data) {
-            if (data.hasOwnProperty(i)) {
-                type = this.config[i];
-                checker = this.types[type];
-                if (!type) {
-                    continue;  //不需要验证
-                }
-                if (!checker) {
-                    throw {
-                        name: 'ValidationError',
-                        message: 'No handler to validate type ' + type
-                    };
-                }
-                result_ok = checker.validate(data[i]);
-                if (!result_ok) {
-                    msg = 'Invalid value for *' + i + '*, ' + checker.instructions;
-                    this.messages.push(msg);
-                }
-            }
-        }
-
-        return this.hasErrors();
+var operate = {
+    add: function (a, b) {
+        return a + b;
     },
-    hasErrors: function () {
-        return this.messages.length != 0;
+    sub: function (a, b) {
+        return a - b;
+    },
+    mul: function (a, b) {
+        return a * b;
+    },
+    div: function (a, b) {
+        return a / b;
     }
 };
 
-validator.types.isNonEmpty = {
-    validate: function (value) {
-        return value !== '';
-    },
-    instructions: 'the value cannot be empty'
-};
-validator.types.isNumber = {
-    validate: function (value) {
-        return !isNaN(value);
-    },
-    instructions: 'the value can only be a valid number'
+var calc = function (cmd, arg1, arg2) {
+    return operate[cmd](arg1, arg2);
 };
 
-var data = {
-    name: 'vector',
-    age: 'qq'
-};
-validator.config = {
-    name: 'isNonEmpty',
-    age: 'isNumber'
-};
-validator.validate(data);
-if (validator.hasErrors()) {
-    console.log(validator.messages.join('\n'));
-}
+calc('add', 1, 3);  //4
+calc('mul', 2, 4);  //8

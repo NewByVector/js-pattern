@@ -15,3 +15,4 @@ function factory(name, age) {
 }
 
 var p1 = factory('vector', 25);
+console.log(p1);  //{name: "vector", age: 25, sayName: ƒ, sayAge: ƒ}
